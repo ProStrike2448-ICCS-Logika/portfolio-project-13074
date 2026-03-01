@@ -1,0 +1,12 @@
+<nav>
+  {% if user.is_authenticated %}
+    <p>Hello, {{ user.username }}</p>
+    <form action="{% url 'auth_system:logout' %}" method="post">
+      {% csrf_token %}
+      <input type="submit" value="Logout">
+    </form>
+  {% else %}
+    <a href="{% url 'auth_system:login' %}">Login</a>
+    <a href="{% url 'auth_system:register' %}">Register</a>
+  {% endif %}
+</nav>
