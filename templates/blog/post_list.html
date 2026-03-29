@@ -1,0 +1,70 @@
+{% comment %} <ul class="post-container">
+  {% for post in posts %}
+    <li>
+      <a href="{% url 'blog:post_detail' post.pk %}">{{ post }}</a>
+    </li>
+  {% endfor %}
+</ul> {% endcomment %}
+{% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+{% load static %}
+<link rel="stylesheet" href="{% static "css/post_list.css" %}" crossorigin="anonymous" />
+<div class="container post-container">
+  <div class="row mt-n5">
+    {% for post in posts %}
+      <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp">
+        <div class="blog-grid">
+          <div class="blog-grid-img position-relative">
+            {% if post.image %}
+              <img alt="img" src="{{ post.image.url }}">
+            {% else %}
+              <img alt="img" src="https://www.bootdey.com/image/480x480/00FFFF/000000">
+            {% endif %}
+          </div>
+          <div class="blog-grid-text p-4">
+            <h3 class="h5 mb-3">
+              <a href="{% url 'blog:post_detail' post.pk %}">{{ post }}</a>
+            </h3>
+            <p class="display-30">{{ post.content }}</p>
+            <div class="meta meta-style2">
+              <ul>
+                <li>
+                  <a href="#!"><i class="fas fa-calendar-alt"></i>{{ post.created_at|date:" j M, Y " }}</a>
+                </li>
+                <li>
+                  <a href="#!"><i class="fas fa-user"></i> {{ post.author }}</a>
+                </li>
+                <li>
+                  <a href="#!"><i class="fas fa-comments"></i> {{ post.comments }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div> {% endcomment %}
+{% for post in posts %}
+  <div class="col">
+    <div class="card h-100">
+      <img alt="img"
+           src="{% if post.image %}{{ post.image.url }}{% else %}https://www.bootdey.com/image/480x480/00FFFF/000000{% endif %}"
+           class="card-img-top">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ post }}</h5>
+        <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+        <a class="icon-link icon-link-hover stretched-link mt-auto"
+           style="--bs-link-hover-color-rgb: 25, 135, 84"
+           href="{% url 'blog:post_detail' post.pk %}">
+          Далі
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="bi"
+               viewBox="0 0 16 16"
+               aria-hidden="true">
+            <path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
